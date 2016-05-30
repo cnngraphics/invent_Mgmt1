@@ -1,0 +1,19 @@
+.single-item {
+    text-align: center;
+    padding: 4px;
+   
+} 
+
+
+.item-bordered {
+     border: 1px solid silver;
+}
+
+.item-block{
+    min-width: 100px;
+    min-height: 150px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 7px;
+}
