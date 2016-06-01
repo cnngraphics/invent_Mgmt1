@@ -8,16 +8,25 @@ $(document).ready(function () {
     }
 
 $('.buttons, .button-plus').click(function(event){
- //alert(event.target.id);
+ 
+    alert(event.target.id);
    
+   var detectedId = event.target.id;
 
-        var detectedId = event.target.id;
+   var total = $('.buttons :nth-child(2)').html("Total"); ///detect total button
+   //console.log(total.html());  //spit out the value of total
+     // console.log(total);  //spit out the value of total
 
+      console.log($('div#sum.btn.btn-primary.disabled').html());
+
+
+     
         var plusaddone = "plus";
         var minusOne = "minus";
         if(detectedId.indexOf(plusaddone) != -1){
-            console.log(plusaddone + " found");
-            console.log(this);
+            //console.log(plusaddone + " found");
+          //  console.log(this);
+          //  console.log(this.$('.disabled'));
         }
 
          if(detectedId.indexOf(minusOne) != -1){
