@@ -4,7 +4,7 @@ include_once 'dbconfig.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 
 <head>
 
@@ -23,6 +23,8 @@ include_once 'dbconfig.php';
     <link href="css/freelancer.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -37,7 +39,9 @@ include_once 'dbconfig.php';
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index"  ng-init="items-added:0; cubic-feet:0; total-cubes-ordered:0;price-estimate:0;">
+
+    
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -74,8 +78,8 @@ include_once 'dbconfig.php';
         </div>
         <!-- /.container-fluid -->
     </nav>
-
-    <!-- Header -->
+<br/>   <br/>
+    <!-- Header 
     <header>
         <div class="container">
             <div class="row">
@@ -89,9 +93,142 @@ include_once 'dbconfig.php';
                 </div>
             </div>
         </div>
-    </header>
+    </header>-->
+
+    
+
+
+    <!-- Main blocks -->
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center">
+                    <h2>Build Your Inventory</h2>
+                    <hr class="star-primary">
+
+                    <div class="row"><!--row for items loop -->
+
+    
+                        <?php $sql="SELECT * FROM tbl_uploads";
+                        
+                        $result_set=mysqli_query($dbh,$sql);
+                        while($row=mysqli_fetch_array($result_set))
+                        {
+                           
+                            $itemId= $row['id'];
+
+                            ?>                
+                           <form method="post" action="">
+                            <input type="hidden" value="<?php echo $row['file']; ?>" name="filename">
+                            <input type="hidden" value="<?php echo $row['type']; ?>" name="filetype">
+                            <input type="hidden" value="<?php echo $row['size']; ?>" name="fileSize">
+                            <input type="hidden" value="<?php echo $row['cubicSize'] ?>" name="cubicSize">
+                            <input type="hidden" value="<?php echo $row['id']; ?>" name="id" id="<?php echo $row['id']; ?>">
+                            <input type="hidden" value="<?php echo $row['weight']; ?>" name="weight">
+                            
+                            <!--One item at a time in it's own block -->
+                            <div class="col-sm-3 portfolio-item">
+                                <div class="single-item item-bordered">
+                                    <div class="single-item item-bordered item-block">
+                                        
+                                            <img id ="item<?php echo $row['id']; ?>" src="uploads/<?php echo $row['file'] ?>" height="100">
+                            
+                                    </div> <!--end item block-->
+
+                                    <div class="buttons">
+                                        <div class="btn btn-primary" id="minus<?php echo $itemId= $row['id']; ?>" 
+
+
+
+                                        <div class="btn btn-primary disabled" >{{count}}</div>
+                                    </div>
+<!-- JQUERY BUTTONS
+                                    <div class="buttons">
+                                        <div class="btn btn-primary" id="minus<?php echo $itemId= $row['id']; ?>" >-</div>
+                                        <div class="btn btn-primary disabled" id="sum">0</div>
+                                        <div class="btn btn-primary" id="plus<?php echo $itemId= $row['id']; ?>">+</div>
+                                    </div>
+-->
+                                    <br>
+                                    <span id="yespack" class="label label-success"></span>
+                                    Need packing? <input type="checkbox" id="option"  name="Packing">
+
+                                </div>
+                 
+                            </div><!--ennd item-->
+
+
+                        <?php
+                          }    
+                        ?>
+                        </form>
+                    </div><!-- ******* - - - -Begin left Column****** -->
+                </div> <!-- End of left column -->
+
+                <div class="col-md-4 text-center"> <!-- Begin Right Column -->
+                       
+                        <!-- <hr class="star-primary"> -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                 <h4 class="panel-title">Your Inventory Details</h4>
+                                
+                            </div>
+                            <div class="panel-body">
+
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                         <h4 class="panel-title">Items Added</h4>
+
+                                    </div>
+                                        <div class="panel-body">
+                                        </div>
+
+                                    <div class="panel-heading">
+                                         <h4 class="panel-title">Cubic Feet</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                               <span ng-model="">{{cubic-feet}} </span>
+                                    </div>
+
+
+                                    <div class="panel-heading">
+                                         <h4 class="panel-title">Total Cubes to Order</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <span ng-model="">{{total-cubes-ordered}} </span>
+                                    </div>
+                                    
+                                    <div class="panel-heading">
+                                         <h4 class="panel-title">Estimate</h4>
+                                    </div>
+                                        <div class="panel-body">
+                                            <span ng-model="">{{price-estimate}}</span>
+                                        </div>
+                                    
+                                </div>
+
+
+                                Ball park estimates. Not final quote. Please call 888-888-8888 for more details.
+                            </div>
+                        </div>
+
+                        
+
+
+                </div>
+            </div>
+        </div> <!-- end main container -->
+
+    </section>
+
+
+
 
     <!-- Portfolio Grid Section -->
+    <br/>
     <section id="portfolio">
         <div class="container">
             <div class="row">
@@ -582,6 +719,8 @@ include_once 'dbconfig.php';
 
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
+
+    <script type="text/JavaScript" src="js/angular.min.js"></script>
 
 </body>
 
